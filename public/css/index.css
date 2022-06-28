@@ -1,0 +1,118 @@
+@import url('https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Hindi:ital@0;1&display=swap');
+
+*{
+    font-family:'Tiro Devanagari Hindi',sans-serif;
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently*/
+}
+
+.mgt{
+    margin-top: 25vh;
+    margin-bottom: 35vh;
+}
+
+#logo{
+    font-size: 6rem;
+    color: rgb(220, 232, 255);
+}
+
+.fnt{
+    font-weight: 300;
+    font-size: 18px;
+}
+.division{
+    background-color: #dff6ff75;
+    border-radius: 10%;
+    height: 4px;
+}
+.info{
+    margin-top: 20px;
+    padding: 5px;
+    height: 500px;
+    /* background:#DFF6FF; */
+}
+
+.info1{
+    display: flex;
+    padding: 5px;
+    align-items: center;
+    justify-content:space-around;
+    flex-direction: column;
+}
+
+.info--text{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    word-wrap: break-word;
+}
+
+.info--text h3{
+    font-size: 18px;
+    text-align: justify;
+    color: black;
+}
+
+.info--text h6{
+   
+    color: #06283D;
+    font-size:12px;
+}
+
+.info--box{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.box{
+    height: 150px;
+    width: 150px;
+    display: flex;
+    justify-content:center;
+    align-items: flex-end;
+    background-color: #1363DF;
+    border-radius: 10%;
+    margin-right: 20px;
+    flex-wrap: wrap;
+}
+
+.box p{
+    text-align: center;
+}
+@media only screen and (max-width: 600px) {
+    #logo{
+        font-size: 4rem;
+    }
+
+    .fnt{
+        font-size: 12px;
+    }
+
+    .box{
+        height: 100px;
+        width: 80px;
+        font-size: 12px;
+    }
+
+    .info1{
+        margin-top: 20px;
+    }
+    
+    .info--text h6{
+        margin-top: -45px;
+        font-size:8px;
+    }
+
+    .info--text h3{
+        font-size: 12px;
+        text-align: justify;
+        color: black;
+    }
+  }
