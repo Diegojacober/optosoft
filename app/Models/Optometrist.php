@@ -24,4 +24,19 @@ class Optometrist extends Model
     {
         return $this->hasMany(User::class);
     }
+
+    public function oticas()
+    {
+        return $this->HasMany(Otica::class);
+    }
+
+    public function receitas()
+    {
+        return $this->HasMany(Receita::class);
+    }
+
+    public function pagamentos()
+    {
+        return $this->hasMany(Pagamento::class);
+    }
 }

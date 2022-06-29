@@ -46,7 +46,7 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
         'email_verified_at' => 'datetime',
     ];
 
-    public function optmetrist()
+    public function optometrist()
     {
         return $this->belongsTo(Optometrist::class);
     }

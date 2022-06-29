@@ -25,6 +25,18 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        Gate::define('optometrist', function($user) {
+
+            return intval($user->is_optometrist) === 1;
+
+        });
+
+        // Gate::define('adminUsers',function($user){
+
+        //     $idCargo =  $user->id_cargo;
+        //     $permissao = Permissoes::where('id_cargo','=',$idCargo)->first();
+
+        //     return intval($permissao->createUser) === 1;
+        // });
     }
 }

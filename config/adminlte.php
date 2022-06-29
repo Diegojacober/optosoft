@@ -234,8 +234,9 @@ return [
         // Sidebar items:
         [
             'text'        => 'Meu Perfil',
-            'url'         => 'opto/perfil',
+            'url'         => 'opto/profile',
             'icon'        => 'fas fa-fw fa-user',
+            'can'         => 'optometrist',
         ],
         [
             'text'    => 'Receitas',
@@ -250,6 +251,7 @@ return [
                     'text' => 'Nova Receita',
                     'icon'    => 'fa-solid fa-plus text-dark',
                     'url'  => '#',
+                    'can'         => 'optometrist',
                 ],
             ],
         ],
@@ -264,22 +266,25 @@ return [
             'text' => 'Óticas',
             'url'  => 'opto/oticas',
             'icon' => 'fa-solid fa-shop',
+            'can'         => 'optometrist',
         ],
         [
             'text'       => 'Financeiro',
             'icon'    => 'fa-solid fa-money-bill',
             'url'        => '#',
+            'can'         => 'optometrist',
         ],
 
         [
             'text' => 'Usuários',
             'url'  => 'opto/users',
             'icon' => 'fa-solid fa-users',
+            'can'         => 'optometrist',
         ],
         // ['header' => 'account_settings'],
-        
-        
-        
+
+
+
     ],
 
     /*

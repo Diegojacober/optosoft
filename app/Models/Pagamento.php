@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Pagamento extends Model
 {
     use HasFactory;
+
+    public function optometrist()
+    {
+        return $this->belongsTo(Optometrist::class);
+    }
 }

@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Otica extends Model
 {
     use HasFactory;
+
+
+    public function optometrist()
+    {
+        return $this->belongsTo(Optometrist::class);
+    }
 }
