@@ -34,6 +34,7 @@
                     <th>Ultimo Acesso</th>
                     <th></th>
                     <th></th>
+                    <th></th>
                 </thead>
                 @foreach ($users as $user)
                     <tr>
@@ -45,8 +46,9 @@
                         <td class="pt-4">{{ date('d/m/Y H:i:s', strtotime($user->last_access)) }}</td>
                         <td class="pt-4"><a class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#permissions-{{$user->id}}" href="#" ><i
                                     class="fa-solid fa-circle-check"></i> Permissões</a></td>
-                        <td class="pt-4"><a class="btn btn-sm btn-warning" href="{{route('user.profile.edit',$user->id)}}"><i
+                        <td class="pt-4"><a class="btn btn-sm text-light" style="background: #06283D" href="{{route('user.profile.edit',$user->id)}}"><i
                                     class="fa-solid fa-pen-to-square"></i> Editar</a></td>
+                        <td class="pt-4"><a href="#" onclick="deleteUser({{$user->id}},'{{$user->name}}')" id="userDelete" class="btn btn-sm btn-danger"><i class="fa-solid fa-trash-can"></i> Apagar</a></td>
                     </tr>
                 @endforeach
             </tbody>

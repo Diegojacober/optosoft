@@ -103,12 +103,13 @@ class UserController extends Controller
         $data = $request->validated();
         $user = User::find($id);
 
+        $data['password'] = $user->password;
         if($request->password){
             $data['password'] = Hash::make($request->password);
         }
         $user->update($data);
 
-        return redirect()->route('opto.users');
+        return redirect()->route('opto.users')->withSuccess("Os dados de $user->name foi atualizado com sucesso!");
     }
 
     /**
@@ -119,6 +120,10 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+
+        $user = User::find($id);
+        $user->delete();
+
+        return response(['success'],200);
     }
 }

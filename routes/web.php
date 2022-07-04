@@ -28,5 +28,5 @@ Route::prefix('opto')->middleware('auth')->group(function () {
     Route::post('/permissions/store/{id}',[PermissionController::class,'store'])->name('permissions.store');
     Route::get('/users/edit/{id}', [UserController::class, 'edit'])->name('user.profile.edit');
     Route::put('/users/update/{id}', [UserController::class, 'update'])->name('user.profile.update');
-    
+    Route::post('/users/delete/{id}', [UserController::class,'destroy']);
 });
