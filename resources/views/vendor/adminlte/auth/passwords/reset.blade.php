@@ -8,7 +8,7 @@
     @php( $password_reset_url = $password_reset_url ? url($password_reset_url) : '' )
 @endif
 
-@section('auth_header', __('adminlte::adminlte.password_reset_message'))
+@section('auth_header', 'Redefinição de senha')
 
 @section('auth_body')
     <form action="{{ $password_reset_url }}" method="post">
@@ -38,7 +38,7 @@
         {{-- Password field --}}
         <div class="input-group mb-3">
             <input type="password" name="password" class="form-control @error('password') is-invalid @enderror"
-                   placeholder="{{ __('adminlte::adminlte.password') }}">
+                   placeholder="Senha">
 
             <div class="input-group-append">
                 <div class="input-group-text">
@@ -57,7 +57,7 @@
         <div class="input-group mb-3">
             <input type="password" name="password_confirmation"
                    class="form-control @error('password_confirmation') is-invalid @enderror"
-                   placeholder="{{ trans('adminlte::adminlte.retype_password') }}">
+                   placeholder="Reescreva a senha">
 
             <div class="input-group-append">
                 <div class="input-group-text">
@@ -75,7 +75,7 @@
         {{-- Confirm password reset button --}}
         <button type="submit" class="btn btn-block {{ config('adminlte.classes_auth_btn', 'btn-flat btn-primary') }}">
             <span class="fas fa-sync-alt"></span>
-            {{ __('adminlte::adminlte.reset_password') }}
+            Redefinir Senha
         </button>
 
     </form>

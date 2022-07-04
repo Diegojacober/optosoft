@@ -8,7 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Otica extends Model
 {
     use HasFactory;
-
+    protected $fillable = [
+        'nome',
+        'cidade',
+        'optometrist_id',
+        'ativo'
+    ];
 
     public function optometrist()
     {

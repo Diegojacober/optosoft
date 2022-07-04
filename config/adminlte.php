@@ -232,6 +232,7 @@ return [
         ],
 
         // Sidebar items:
+        
         [
             'text'        => 'Meu Perfil',
             'url'         => 'opto/profile',
@@ -257,8 +258,8 @@ return [
         ],
 
         [
-            'text' => 'Exames',
-            'url'  => 'opto/exames',
+            'text' => 'Agenda',
+            'url'  => 'opto/agenda',
             'icon' => 'fa-solid fa-clock',
         ],
 
@@ -280,6 +281,11 @@ return [
             'url'  => 'opto/users',
             'icon' => 'fa-solid fa-users',
             'can'         => 'optometrist',
+        ],
+        [
+            'text'        => 'Sair',
+            'url'         => '/logout',
+            'icon'        => 'fa-solid fa-arrow-right-from-bracket',
         ],
         // ['header' => 'account_settings'],
 

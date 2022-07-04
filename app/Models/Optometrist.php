@@ -27,7 +27,7 @@ class Optometrist extends Model
 
     public function oticas()
     {
-        return $this->HasMany(Otica::class);
+        return $this->HasMany(Otica::class)->orderBy('id', 'DESC');;
     }
 
     public function receitas()

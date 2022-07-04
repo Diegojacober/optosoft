@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreUpdateOptometrist extends FormRequest
+class StoreUpdateOptoUser extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,16 +23,16 @@ class StoreUpdateOptometrist extends FormRequest
      */
     public function rules()
     {
-        $uuid = $this->optometrist;
-        $rules = [
+
+        $id = $this->id ?? '';
+        $rules =  [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', "unique:optometristas,name,{$uuid},uuid"],
-            'photo' => 'image|mimes:jpeg,png,jpg,gif,svg|max:1024',
-            'phone' => 'required|string|min:11|max:11',
+            'email' => ['required', 'string', 'email', 'max:255', "unique:users,email,{$id},id"],
+            'password' => ['required', 'string', 'min:8'],
+            'oticas' => ['array'],
         ];
 
-        if($this->method() == 'PUT'){
-            $rules['photo'] = "nullable|image|max:1024";
+        if($this->method() == 'PUT') {
             $rules['password'] = 'nullable|min:8|max:30';
         }
 

@@ -8,7 +8,7 @@
     @php( $password_email_url = $password_email_url ? url($password_email_url) : '' )
 @endif
 
-@section('auth_header', __('adminlte::adminlte.password_reset_message'))
+@section('auth_header','Recuperar Senha')
 
 @section('auth_body')
 
@@ -42,7 +42,7 @@
         {{-- Send reset link button --}}
         <button type="submit" class="btn btn-block {{ config('adminlte.classes_auth_btn', 'btn-flat btn-primary') }}">
             <span class="fas fa-share-square"></span>
-            {{ __('adminlte::adminlte.send_password_reset_link') }}
+            Enviar link para o email
         </button>
 
     </form>

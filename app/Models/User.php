@@ -50,4 +50,9 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
     {
         return $this->belongsTo(Optometrist::class);
     }
+
+    public function permissoes()
+    {
+        return $this->HasMany(Permission::class);
+    }
 }
