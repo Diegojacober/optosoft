@@ -19,12 +19,12 @@ return new class extends Migration
             $table->id();
             $table->string('nome');
             $table->integer('idade');
-            $table->string('od_esferico')->default(' 0 ');
-            $table->string('od_cilindrico')->default(' 0 ');
-            $table->string('od_eixo')->default(' 0 ');
-            $table->string('oe_esferico')->default(' 0 ');
-            $table->string('oe_cilindrico')->default(' 0 ');
-            $table->string('oe_eixo')->default(' 0 ');
+            $table->string('od_esferico')->nullable()->default(' 0 ');
+            $table->string('od_cilindrico')->nullable()->default(' 0 ');
+            $table->string('od_eixo')->nullable()->default(' 0 ');
+            $table->string('oe_esferico')->nullable()->default(' 0 ');
+            $table->string('oe_cilindrico')->nullable()->default(' 0 ');
+            $table->string('oe_eixo')->nullable()->default(' 0 ');
             $table->text('obs')->nullable();
             $table->foreignIdFor(Optometrist::class)->references('id')->on('optometristas');
             $table->foreignIdFor(Otica::class)->references('id')->on('oticas');

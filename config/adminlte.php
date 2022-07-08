@@ -246,12 +246,12 @@ return [
                 [
                     'text' => 'Ver Receitas',
                     'icon'    => 'fa-solid fa-eye text-dark',
-                    'url'  => '#',
+                    'url'  => 'receitas',
                 ],
                 [
                     'text' => 'Nova Receita',
                     'icon'    => 'fa-solid fa-plus text-dark',
-                    'url'  => '#',
+                    'url'  => 'receitas/new',
                     'can'         => 'optometrist',
                 ],
             ],
