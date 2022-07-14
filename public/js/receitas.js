@@ -58,7 +58,7 @@ $(document).ready(function () {
                     let total = dados.data[0].qntdReceitas
                     let paginas = Math.round(total / 55)
                     dados.data.forEach(e => {
-                        let botaoVer = `<a href="#" class="btn btn-primary" onclick="abrirReceita('${e.is_opto}','${e.id}','${e.nome}','${e.idade}','${e.data_formatada}','${e.od_esferico}','${e.od_esferico}','${e.od_eixo}','${e.oe_esferico}','${e.oe_esferico}','${e.oe_eixo}','${e.adicao}','${e.obs}')">Ver Receita <i class="fa-solid fa-eye"></i></a>`
+                        let botaoVer = `<a href="#" class="btn btn-primary" onclick="abrirReceita('${e.is_opto}','${e.id}','${e.nome}','${e.idade}','${e.data_formatada}','${e.od_esferico}','${e.od_cilindrico}','${e.od_eixo}','${e.oe_esferico}','${e.oe_cilindrico}','${e.oe_eixo}','${e.adicao}','${e.obs}')">Ver Receita <i class="fa-solid fa-eye"></i></a>`
                         let div = `<div class="card text-center w-100" id="receita${e.id}">` +
                             '<div class="card-body">' +
                             `<h5 class="text-center">${e.nome}</h5>` +
@@ -170,13 +170,13 @@ $(document).ready(function () {
                         '<div class="card-footer">'+
                         ` <div class="row">` +
                         `<div class="col-4">` +
-                        `<a href="#" class="btn btn-primary" onclick="editarReceita('${e.id}','${e.nome}','${e.idade}','${e.update_at}','${e.od_esferico}','${e.od_esferico}','${e.od_eixo}','${e.oe_esferico}','${e.oe_esferico}','${e.oe_eixo}','${e.adicao}','${e.obs}')"><i class="fa-solid fa-file-pen" ></i> Editar</a>` +
+                        `<a href="#" class="btn btn-md btn-primary" onclick="editarReceita('${e.id}','${e.nome}','${e.idade}','${e.update_at}','${e.od_esferico}','${e.od_esferico}','${e.od_eixo}','${e.oe_esferico}','${e.oe_esferico}','${e.oe_eixo}','${e.adicao}','${e.obs}')"><i class="fa-solid fa-file-pen" ></i> Editar</a>` +
                         `</div>` +
                         `<div class="col-4">` +
-                        `<a href="#" class="btn btn-secondary">Imprimir</a>` +
+                        `<a class="btn btn-md btn-secondary" target="__blank" href="/pdf/${e.id}"><i class="fa-solid fa-print"></i> Imprimir</a>` +
                         `</div>` +
                         `<div class="col-4">` +
-                        `<a href="#" class="btn btn-danger" onclick="apagarReceita(${e.id})"><i class="fa-solid fa-eraser"></i> Apagar</a>` +
+                        `<a href="#" class="btn btn-md btn-danger" onclick="apagarReceita(${e.id})"><i class="fa-solid fa-eraser"></i> Apagar</a>` +
                         `</div>` +
                         ` </div>` +
                         `</div>` +
@@ -188,7 +188,7 @@ $(document).ready(function () {
                         '<div class="card-footer">'+
                         ` <div class="row">` +
                         `<div class="col-12">` +
-                        `<a href="#" class="btn btn-block btn-secondary">Imprimir</a>` +
+                        `<a class="btn btn-block btn-secondary" target="__blank" href="/pdf/${e.id}"><i class="fa-solid fa-print"></i> Imprimir</a>` +
                         `</div>` +
                         ` </div>` +
                         `</div>` +
@@ -253,9 +253,9 @@ $(document).ready(function () {
 });
 
 function abrirReceita(isOpto, id, nome, idade, update_at, od_esferico, od_cilindrico, od_eixo, oe_esferico, oe_cilindrico, oe_eixo, adicao, obs) {
+    oe_eixo = (oe_eixo !== ' ' &&  oe_eixo !== '' &&  oe_eixo !== 'null') ? `${oe_eixo}°` : '-'
+    od_eixo = (od_eixo !== ' ' &&  od_eixo !== '' &&  od_eixo !== 'null') ? `${od_eixo}°` : '-'
     if (isOpto == 1) {
-        oe_eixo = (oe_eixo !== ' ') ? `${oe_eixo}°` : oe_eixo
-        od_eixo = (od_eixo !== ' ') ? `${od_eixo}°` : od_eixo
         modal = `<div class="modal fade" id="modal${id}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">` +
             '<div class="modal-dialog modal-dialog-centered">' +
             '<div class="modal-content">' +
@@ -303,7 +303,7 @@ function abrirReceita(isOpto, id, nome, idade, update_at, od_esferico, od_cilind
             `<a class="btn btn-sm btn-info" onclick="editarReceita('${id}','${nome}','${idade}','${update_at}','${od_esferico}','${od_esferico}','${od_eixo}','${oe_esferico}','${oe_esferico}','${oe_eixo}','${adicao}','${obs}')"><i class="fa-solid fa-file-pen" ></i> Editar</a>` +
             '</div>' +
             '<div class="col-4">' +
-            '<a class="btn btn-sm btn-secondary"><i class="fa-solid fa-print"></i> Imprimir</a>' +
+            `<a class="btn btn-sm btn-secondary" target="__blank" href="/pdf/${id}"><i class="fa-solid fa-print"></i> Imprimir</a>` +
             '</div>' +
             '<div class="col-4">' +
             `<a class="btn btn-sm btn-danger" onclick="apagarReceita(${id})"><i class="fa-solid fa-eraser"></i> Apagar</a>` +
@@ -359,7 +359,7 @@ function abrirReceita(isOpto, id, nome, idade, update_at, od_esferico, od_cilind
             '</div>' +
             '<div class="row p-4 mt-3">' +
             '<div class="col-12">' +
-            '<a class="btn btn-block btn-secondary"><i class="fa-solid fa-print"></i> Imprimir</a>' +
+            `<a class="btn btn-block btn-secondary" target="__blank" href="/pdf/${id}"><i class="fa-solid fa-print"></i> Imprimir</a>` +
             '</div>' +
             '</div>' +
             '</div>' +

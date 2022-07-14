@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use LDAP\Result;
 
 class Optometrist extends Model
 {
@@ -38,5 +39,10 @@ class Optometrist extends Model
     public function pagamentos()
     {
         return $this->hasMany(Pagamento::class);
+    }
+
+    public function exames()
+    {
+        return $this->hasMany(Exame::class);
     }
 }

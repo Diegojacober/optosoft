@@ -26,4 +26,9 @@ class Otica extends Model
         return $this->hasMany(Receita::class);
     }
 
+    public function exames()
+    {
+        return $this->hasMany(Exame::class);
+    }
+
 }

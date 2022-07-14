@@ -33,4 +33,9 @@ class Receita extends Model
     {
         return $this->belongsTo(Otica::class);
     }
+
+    public static function receitasHoje($optoID)
+    {
+        return Receita::where('created_at','>=',date('Y-m-d 00:00:00'))->where('created_at','<=',date('Y-m-d 23:59:00'))->where('optometrist_id',$optoID)->count();
+    }
 }

@@ -1,11 +1,15 @@
 <?php
 
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\ExameController;
 use App\Http\Controllers\OptometristController;
 use App\Http\Controllers\OticaController;
+use App\Http\Controllers\PDFController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ReceitaController;
+use App\Http\Controllers\SuggestionController;
 use App\Http\Controllers\UserController;
+use App\Models\Exame;
 use App\Models\Receita;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -43,3 +47,15 @@ Route::prefix('receitas')->middleware('auth')->group(function () {
     Route::post('/delete/{id}',[ReceitaController::class,'delete']);
     Route::post('/update/{id}',[ReceitaController::class,'update']);
 });
+
+
+Route::prefix('agenda')->middleware('auth')->group(function () {
+    Route::get('/', [ExameController::class,'index'])->name('agenda.index');
+    Route::post('/new', [ExameController::class,'store']);
+    Route::get('/events',[ExameController::class,'events']);
+    Route::post('/setstatus',[ExameController::class,'setStatus']);
+});
+Route::post('/suggestion/new',[SuggestionController::class,'store'])->middleware('auth');
+Route::get('/anamnese/1',[PDFController::class,'anamnese1'])->middleware('auth');
+Route::get('/anamnese/2',[PDFController::class,'anamnese2'])->middleware('auth');
+Route::get('/pdf/{id}',[PDFController::class,'newPdf'])->middleware('auth');

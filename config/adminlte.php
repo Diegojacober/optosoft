@@ -232,13 +232,14 @@ return [
         ],
 
         // Sidebar items:
-        
+
         [
             'text'        => 'Meu Perfil',
             'url'         => 'opto/profile',
             'icon'        => 'fas fa-fw fa-user',
             'can'         => 'optometrist',
         ],
+        
         [
             'text'    => 'Receitas',
             'icon'    => 'fa-solid fa-file-signature',
@@ -258,8 +259,30 @@ return [
         ],
 
         [
+            'text'    => 'Anamnese',
+            'icon'    => 'fa-solid fa-file-arrow-down',
+            'submenu' => [
+                [
+                    'text' => 'Modelo 1',
+                    'icon'    => 'fa-solid fa-1 text-dark',
+                    'url'  => 'anamnese/1',
+                    'target' => '_blank',
+                    'can'         => 'optometrist',
+                ],
+                [
+                    'text' => 'Modelo 2',
+                    'icon'    => 'fa-solid fa-2 text-dark',
+                    'url'  => 'anamnese/2',
+                    'target' => '_blank',
+                    'can'         => 'optometrist',
+                ],
+            ],
+            'can'         => 'optometrist',
+        ],
+
+        [
             'text' => 'Agenda',
-            'url'  => 'opto/agenda',
+            'url'  => 'agenda',
             'icon' => 'fa-solid fa-clock',
         ],
 
@@ -267,30 +290,20 @@ return [
             'text' => 'Óticas',
             'url'  => 'opto/oticas',
             'icon' => 'fa-solid fa-shop',
-            'can'         => 'optometrist',
-        ],
-        [
-            'text'       => 'Financeiro',
-            'icon'    => 'fa-solid fa-money-bill',
-            'url'        => '#',
-            'can'         => 'optometrist',
+            'can'  => 'optometrist',
         ],
 
         [
             'text' => 'Usuários',
             'url'  => 'opto/users',
             'icon' => 'fa-solid fa-users',
-            'can'         => 'optometrist',
+            'can'  => 'optometrist',
         ],
         [
             'text'        => 'Sair',
             'url'         => '/logout',
             'icon'        => 'fa-solid fa-arrow-right-from-bracket',
         ],
-        // ['header' => 'account_settings'],
-
-
-
     ],
 
     /*
