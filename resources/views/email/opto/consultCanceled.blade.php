@@ -1,7 +1,7 @@
 @component('mail::message')
 Uma consulta foi cancelada.
 
-@component('mail::button', ['url' => 'http://localhost/agenda'])
+@component('mail::button', ['url' => 'http://optosoft.com.br/agenda'])
 Clique aqui e confira
 @endcomponent
 

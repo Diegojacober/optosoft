@@ -3,7 +3,7 @@ Olá
 
 Você tem uma nova consulta agendada.
 
-@component('mail::button', ['url' => 'http://localhost/agenda'])
+@component('mail::button', ['url' => 'http://optosoft.com.br/agenda'])
 Clique aqui e veja
 @endcomponent
 
