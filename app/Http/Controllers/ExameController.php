@@ -118,7 +118,7 @@ class ExameController extends Controller
 
     private function VerificarDisponibildade($horaInicial, $horaFinal, $optoID, $oticaID)
     {
-        $reserva = Exame::whereRaw("otica_id = '$oticaID' AND optometrist_id = '$optoID' AND ( NOT (  end <= '$horaInicial' ))")->get();
+        $reserva = Exame::whereRaw("otica_id = '$oticaID' AND optometrist_id = '$optoID' AND ( NOT (start >= '$horaFinal' OR  end <= '$horaInicial' ))")->get();
         return $reserva;
     }
 }
