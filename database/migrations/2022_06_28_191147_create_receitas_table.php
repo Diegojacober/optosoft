@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('oe_esferico')->nullable()->default(' 0 ');
             $table->string('oe_cilindrico')->nullable()->default(' 0 ');
             $table->string('oe_eixo')->nullable()->default(' 0 ');
+            $table->string('adicao')->nullable()->default('0');
             $table->text('obs')->nullable();
             $table->foreignIdFor(Optometrist::class)->references('id')->on('optometristas');
             $table->foreignIdFor(Otica::class)->references('id')->on('oticas');
