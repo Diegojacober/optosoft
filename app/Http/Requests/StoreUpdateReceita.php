@@ -34,7 +34,10 @@ class StoreUpdateReceita extends FormRequest
             'oe_cilindrico' => ['nullable'],
             'oe_eixo' => ['nullable'],
             'adicao' => ['nullable'],
-            'obs' => ['nullable','min:3']
+            'obs' => ['nullable','min:3'],
+            'ac' => ['nullable','string'],
+            'acd' => ['nullable','string'],
+            'ace' => ['nullable','string'],
         ];
 
         return $rules;

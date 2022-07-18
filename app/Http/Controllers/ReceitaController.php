@@ -54,6 +54,15 @@ class ReceitaController extends Controller
         $user = User::with(['optometrist'])->find(Auth::id());
         $opto = Optometrist::with(['oticas'])->find($user->optometrist_id);
         foreach ($data['oticas'] as $key => $otica) {
+            if($data['ac'] == ''){
+                $data['ac'] = '-';
+            }
+            if($data['acd'] == ''){
+                $data['acd'] = '-';
+            }
+            if($data['ace'] == ''){
+                $data['ace'] = '-';
+            }
             Receita::create([
                 'nome' => $data['nome'],
                 'idade' => $data['idade'],
@@ -65,6 +74,9 @@ class ReceitaController extends Controller
                 'oe_eixo' => $data['oe_eixo'],
                 'adicao' => $data['adicao'],
                 'obs' => $data['obs'],
+                'ac' => $data['ac'],
+                'acd' => $data['acd'],
+                'ace' => $data['ace'],
                 'optometrist_id' => $opto->id,
                 'otica_id' => $otica
             ]);
@@ -81,7 +93,7 @@ class ReceitaController extends Controller
         if ($opto->pago == 0) {
                 if($otica->optometrist->id == $opto->id) {
                     $total = Receita::where('otica_id',$otica->id)->where('optometrist_id',$opto->id)->count();
-                    $receitas = Receita::where('otica_id',$otica->id)->where('optometrist_id',$opto->id)->paginate(55);
+                    $receitas = Receita::where('otica_id',$otica->id)->where('optometrist_id',$opto->id)->orderBy('created_at', 'DESC')->paginate(55);
                     
                     
                     foreach($receitas as $i => $receita) {
@@ -104,7 +116,7 @@ class ReceitaController extends Controller
         if ($opto->pago == 0) {
                 if($otica->optometrist->id == $opto->id) {
             
-                    $receitas = Receita::where('otica_id',$otica->id)->where('optometrist_id',$opto->id)->where('nome','LIKE',"%$request->nome%")->get();
+                    $receitas = Receita::where('otica_id',$otica->id)->where('optometrist_id',$opto->id)->where('nome','LIKE',"%$request->nome%")->orderBy('created_at', 'DESC')->get();
                     foreach($receitas as $i => $receita) {
                     $receitas[$i]['data_formatada'] = $receita->updated_at->format('d/m/Y H:i');
                     $receitas[$i]['is_opto'] = ($user->is_optometrist == 1) ? 1 : 0;
@@ -118,8 +130,17 @@ class ReceitaController extends Controller
 
     public function update(Request $request,$id)
     {
-        $data = $request->only('nome','idade','adicao','obs','od_esferico','od_cilindrico','od_eixo','oe_esferico','oe_cilindrico','oe_eixo');
+        $data = $request->only('nome','idade','adicao','obs','od_esferico','od_cilindrico','od_eixo','oe_esferico','oe_cilindrico','oe_eixo','ac','acd','ace');
 
+        if($data['ac'] == ''){
+            $data['ac'] = '-';
+        }
+        if($data['acd'] == ''){
+            $data['acd'] = '-';
+        }
+        if($data['ace'] == ''){
+            $data['ace'] = '-';
+        }
         foreach($data as $i => $dado) {
             if(is_null($data[$i])){
                 $data[$i] = ' ';

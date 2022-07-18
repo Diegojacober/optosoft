@@ -4,7 +4,11 @@
 
 @section('content')
 
-    <div class="container-fluid pt-5">
+<style>
+    .table th, .table td{
+        padding: 0.5rem 0.5rem !important;
+    }
+</style>
 
         @if ($errors->any())
             <div class="alert alert-danger">
@@ -23,16 +27,15 @@
             </div>
         @endif
 
-        <div class=""
-            style="padding: 10px;border:1px outset rgba(0, 0, 0, 0.356);border-radius:25px;background:rgba(214, 214, 214, 0.438)">
+        <div class="" style="padding: 10px;border:1px outset rgba(0, 0, 0, 0.356);border-radius:25px;background:rgba(214, 214, 214, 0.438)">
 
-            <form action="{{ route('receitas.store') }}" class="p-3 w-100 " method="POST">
+            <form action="{{ route('receitas.store') }}" class="p-3 w-100 " id="teste" method="POST">
                 @csrf
 
                 <div class="row">
                     <div class="col-8">
                         <div class="form-floating">
-                            <input type="text" class="form-control" name="nome" id="floatingInput"
+                            <input type="text" class="form-control" name="nome" id="nomeC"
                                 value="{{ old('nome') }}">
                             <label for="floatingInput">Nome do Paciente</label>
                         </div>
@@ -41,7 +44,7 @@
                     <div class="col-4">
                         <div class="form-floating">
                             <input type="text" class="form-control" name="idade" id="floatingInput"
-                                value="{{ old('idade') }}">
+                                value="{{ old('idade') }}" required>
                             <label for="floatingInput">Idade</label>
                         </div>
                     </div>
@@ -53,8 +56,8 @@
                             @if ($otica->ativo == 0)
                                 <div class="col-md-4 col-12 mb-2 fs-6">
                                     <div class="form-check form-switch">
-                                        <input class="form-check-input" type="checkbox" name="oticas[{{ $otica->id }}]"
-                                            value="{{ $otica->id }}" id="flexSwitchCheckDefault">
+                                        <input class="form-check-input oticasc" type="checkbox" name="oticas[{{ $otica->id }}]"
+                                            value="{{ $otica->id }}"  id="flexSwitchCheckDefault">
                                         <label class="form-check-label"
                                             for="flexSwitchCheckDefault">{{ $otica->nome }}</label>
                                     </div>
@@ -65,20 +68,20 @@
                     </div>
                 </div>
 
-                <div class="row mt-3">
-                    <div class="table-responsive" style="border-radius: 20px">
-                        <table class="table table-light ">
+                    {{-- <div style="border-radius: 20px;min-width:355px;margin-left:-25px"> --}}
+                        <table class="table table-light " class="d-flex justify-content-center align-items-center">
                             <thead class="">
                                 <tr>
                                     <th scope="col"></th>
                                     <th scope="col">Esférico</th>
                                     <th scope="col">Cilindríco</th>
                                     <th scope="col">Eixo</th>
+                                    <th scope="col">A/C</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <th scope="row">OD</th>
+                                    <th id="odCreate">OD</th>
                                     <td>
                                         <select name="od_esferico" class="form-control">
 
@@ -399,15 +402,24 @@
                                     </td>
                                     <td>
 
-                                        <div class="input-group mb-3">
+                                        <div class="mb-3">
                                             <input type="text" class="form-control" aria-label=""
                                                 aria-describedby="basic-addon2" name="od_eixo"
                                                 value="{{ old('od_eixo') }}">
                                         </div>
                                     </td>
+
+                                    <td>
+
+                                        <div class="mb-3">
+                                            <input type="text" class="form-control" aria-label=""
+                                                aria-describedby="basic-addon2" name="acd"
+                                                value="{{ old('acd') }}">
+                                        </div>
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <th scope="row">OE</th>
+                                    <th>OE</th>
                                     <td>
                                         <select name="oe_esferico" class="form-control">
                                             <option>+21,00</option>
@@ -735,11 +747,33 @@
                                            
                                         </div>
                                     </td>
+
+                                    <td>
+
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control" aria-label=""
+                                                aria-describedby="basic-addon2" name="ace"
+                                                value="{{ old('ace') }}">
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control" aria-label=""
+                                                aria-describedby="basic-addon2" name="ac"
+                                                value="{{ old('ac') }}">
+                                        </div>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
-                    </div>
-                </div>
+                  {{--   </div> --}}
 
                 <div class="row mt-3">
                     <div class="col-12">
@@ -803,7 +837,7 @@
 
                 <div class="row mt-4">
                     <div class="col-6">
-                        <button type="submit" class="btn btn-lg btn-info">Cadastrar</button>
+                        <button type="submit" class="btn btn-lg btn-info" >Cadastrar</button>
                     </div>
                 </div>
 
@@ -811,6 +845,5 @@
 
         </div>
 
-    </div>
 
 @endsection

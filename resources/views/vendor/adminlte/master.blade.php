@@ -149,6 +149,7 @@
         <script src="{{ asset('/js/otica.js') }}"></script>
         <script src="{{ asset('/js/optouser.js') }}"></script>
         <script src="{{ asset('/js/receitas.js') }}"></script>
+        <script src="{{ asset('/js/createReceita.js') }}"></script>
         <script src='{{ asset('/assets/lib/main.min.js') }}'></script>
         <script src="{{ asset('/assets/lib/locales-all.min.js') }}"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.8/jquery.mask.min.js"></script>

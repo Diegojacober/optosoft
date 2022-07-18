@@ -24,5 +24,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('/teste', function() {
-   OptometristCreated::dispatch('testegfieifeui@foufou.cu');
+   OptometristCreated::dispatch('diegoalencar.jacober@gmail.com');
 });

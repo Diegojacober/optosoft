@@ -55,10 +55,20 @@ $(document).ready(function () {
                     $('#receitas').fadeOut()
                     $('#receitas').html('')
                     $("#searchReceita").data("otica", otica);
+                    if(dados.data.length == 0) {
+                        return Swal.fire(
+                            'Nenhum Registro',
+                            'Ainda não existe nenhuma receita registrada na ótica desejada',
+                            'info'
+                        )
+                    }
                     let total = dados.data[0].qntdReceitas
                     let paginas = Math.round(total / 55)
                     dados.data.forEach(e => {
-                        let botaoVer = `<a href="#" class="btn btn-primary" onclick="abrirReceita('${e.is_opto}','${e.id}','${e.nome}','${e.idade}','${e.data_formatada}','${e.od_esferico}','${e.od_cilindrico}','${e.od_eixo}','${e.oe_esferico}','${e.oe_cilindrico}','${e.oe_eixo}','${e.adicao}','${e.obs}')">Ver Receita <i class="fa-solid fa-eye"></i></a>`
+                        if(e.obs == null || e.obs == undefined) {
+                            e.obs = ''
+                        }
+                        let botaoVer = `<a href="#" class="btn btn-primary" onclick="abrirReceita('${e.is_opto}','${e.id}','${e.nome}','${e.idade}','${e.data_formatada}','${e.od_esferico}','${e.od_cilindrico}','${e.od_eixo}','${e.oe_esferico}','${e.oe_cilindrico}','${e.oe_eixo}','${e.adicao}','${e.obs}','${e.ac}','${e.acd}','${e.ace}')">Ver Receita <i class="fa-solid fa-eye"></i></a>`
                         let div = `<div class="card text-center w-100" id="receita${e.id}">` +
                             '<div class="card-body">' +
                             `<h5 class="text-center">${e.nome}</h5>` +
@@ -170,7 +180,7 @@ $(document).ready(function () {
                         '<div class="card-footer">'+
                         ` <div class="row">` +
                         `<div class="col-4">` +
-                        `<a href="#" class="btn btn-md btn-primary" onclick="editarReceita('${e.id}','${e.nome}','${e.idade}','${e.update_at}','${e.od_esferico}','${e.od_esferico}','${e.od_eixo}','${e.oe_esferico}','${e.oe_esferico}','${e.oe_eixo}','${e.adicao}','${e.obs}')"><i class="fa-solid fa-file-pen" ></i> Editar</a>` +
+                        `<a href="#" class="btn btn-md btn-primary" onclick="editarReceita('${e.id}','${e.nome}','${e.idade}','${e.update_at}','${e.od_esferico}','${e.od_esferico}','${e.od_eixo}','${e.oe_esferico}','${e.oe_esferico}','${e.oe_eixo}','${e.adicao}','${e.obs}','${e.ac}','${e.acd}','${e.ace}')"><i class="fa-solid fa-file-pen" ></i> Editar</a>` +
                         `</div>` +
                         `<div class="col-4">` +
                         `<a class="btn btn-md btn-secondary" target="__blank" href="/pdf/${e.id}"><i class="fa-solid fa-print"></i> Imprimir</a>` +
@@ -252,9 +262,10 @@ $(document).ready(function () {
 
 });
 
-function abrirReceita(isOpto, id, nome, idade, update_at, od_esferico, od_cilindrico, od_eixo, oe_esferico, oe_cilindrico, oe_eixo, adicao, obs) {
-    oe_eixo = (oe_eixo !== ' ' &&  oe_eixo !== '' &&  oe_eixo !== 'null') ? `${oe_eixo}°` : '-'
-    od_eixo = (od_eixo !== ' ' &&  od_eixo !== '' &&  od_eixo !== 'null') ? `${od_eixo}°` : '-'
+function abrirReceita(isOpto, id, nome, idade, update_at, od_esferico, od_cilindrico, od_eixo, oe_esferico, oe_cilindrico, oe_eixo, adicao, obs,ac,acd,ace) {
+    oe_eixo = (oe_eixo == ' ' ||  oe_eixo == '' || oe_eixo == 'null') ? `-` : oe_eixo
+    od_eixo = (od_eixo == ' ' ||  od_eixo == '' || od_eixo == 'null') ? `-` : od_eixo
+    
     if (isOpto == 1) {
         modal = `<div class="modal fade" id="modal${id}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">` +
             '<div class="modal-dialog modal-dialog-centered">' +
@@ -276,6 +287,7 @@ function abrirReceita(isOpto, id, nome, idade, update_at, od_esferico, od_cilind
             `<th scope="col">Esférico</th>` +
             `<th scope="col">Cilindríco</th>` +
             `<th scope="col">Eixo</th>` +
+            `<th scope="col">A/C</th>` +
             `</tr>` +
             `</thead>` +
             `<tbody>` +
@@ -284,12 +296,21 @@ function abrirReceita(isOpto, id, nome, idade, update_at, od_esferico, od_cilind
             ` <td> ${od_esferico} </td>` +
             `<td> ${od_cilindrico} </td>` +
             ` <td> ${od_eixo} </td>` +
+            ` <td> ${acd} </td>` +
             `</tr>` +
             `<tr>` +
             `<th scope="row">OE</th>` +
             ` <td> ${oe_esferico}  </td>` +
             ` <td> ${oe_cilindrico} </td>` +
             `  <td> ${oe_eixo} </td>` +
+            `  <td> ${ace} </td>` +
+            ` </tr>` +
+            `<tr>` +
+            `<th></th>` +
+            ` <td></td>` +
+            ` <td></td>` +
+            `  <td></td>` +
+            `  <td>${ac}</td>` +
             ` </tr>` +
             `</tbody>` +
             `</table>` +
@@ -300,7 +321,7 @@ function abrirReceita(isOpto, id, nome, idade, update_at, od_esferico, od_cilind
             '</div>' +
             '<div class="row p-4 mt-3">' +
             '<div class="col-4">' +
-            `<a class="btn btn-sm btn-info" onclick="editarReceita('${id}','${nome}','${idade}','${update_at}','${od_esferico}','${od_esferico}','${od_eixo}','${oe_esferico}','${oe_esferico}','${oe_eixo}','${adicao}','${obs}')"><i class="fa-solid fa-file-pen" ></i> Editar</a>` +
+            `<a class="btn btn-sm btn-info" onclick="editarReceita('${id}','${nome}','${idade}','${update_at}','${od_esferico}','${od_cilindrico}','${od_eixo}','${oe_esferico}','${oe_cilindrico}','${oe_eixo}','${adicao}','${obs}','${ac}','${acd}','${ace}')"><i class="fa-solid fa-file-pen" ></i> Editar</a>` +
             '</div>' +
             '<div class="col-4">' +
             `<a class="btn btn-sm btn-secondary" target="__blank" href="/pdf/${id}"><i class="fa-solid fa-print"></i> Imprimir</a>` +
@@ -335,6 +356,7 @@ function abrirReceita(isOpto, id, nome, idade, update_at, od_esferico, od_cilind
             `<th scope="col">Esférico</th>` +
             `<th scope="col">Cilindríco</th>` +
             `<th scope="col">Eixo</th>` +
+            `<th scope="col">A/C</th>` +
             `</tr>` +
             `</thead>` +
             `<tbody>` +
@@ -343,12 +365,21 @@ function abrirReceita(isOpto, id, nome, idade, update_at, od_esferico, od_cilind
             ` <td> ${od_esferico} </td>` +
             `<td> ${od_cilindrico} </td>` +
             ` <td> ${od_eixo} </td>` +
+            `  <td>${acd}</td>` +
             `</tr>` +
             `<tr>` +
             `<th scope="row">OE</th>` +
             ` <td> ${oe_esferico}  </td>` +
             ` <td> ${oe_cilindrico} </td>` +
             `  <td> ${oe_eixo} </td>` +
+            `  <td>${ace}</td>` +
+            ` </tr>` +
+            `<tr>` +
+            `<th></th>` +
+            ` <td></td>` +
+            ` <td></td>` +
+            `  <td></td>` +
+            `  <td>${ac}</td>` +
             ` </tr>` +
             `</tbody>` +
             `</table>` +
@@ -372,7 +403,7 @@ function abrirReceita(isOpto, id, nome, idade, update_at, od_esferico, od_cilind
     $(`#modal${id}`).modal('show')
 }
 
-function editarReceita(id, nome, idade, update_at, od_esferico, od_cilindrico, od_eixo, oe_esferico, oe_cilindrico, oe_eixo, adicao, obs) {
+function editarReceita(id, nome, idade, update_at, od_esferico, od_cilindrico, od_eixo, oe_esferico, oe_cilindrico, oe_eixo, adicao, obs,ac,acd,ace) {
 
     let modalAtualizar =
         `<div class="modal fade" id="modalEdit${id}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">` +
@@ -409,6 +440,7 @@ function editarReceita(id, nome, idade, update_at, od_esferico, od_cilindrico, o
         ` <th scope="col">Esférico</th>` +
         `<th scope="col">Cilindríco</th>` +
         ` <th scope="col">Eixo</th>` +
+        ` <th scope="col">A/C</th>` +
         `     </tr>` +
         ` </thead>` +
         ` <tbody>` +
@@ -417,13 +449,22 @@ function editarReceita(id, nome, idade, update_at, od_esferico, od_cilindrico, o
         `   <td> <input type="text" class="form-control" id="updateOd_esferico${id}" name="od_esferico" value="${od_esferico}"> </td>` +
         `   <td> <input type="text" class="form-control" id="updateOd_cilindrico${id}" name="od_cilindrico" value="${od_cilindrico}"> </td>` +
         `   <td> <input type="text" class="form-control" id="updateOd_eixo${id}" name="od_eixo" value="${od_eixo}"> </td>` +
+        `   <td> <input type="text" class="form-control" id="updateacd${id}" name="oe_eixo" value="${acd}"> </td>` +
         `  </tr>` +
         `  <tr>` +
         `  <th scope="row">OE</th>` +
         `   <td> <input type="text" class="form-control" id="updateOe_esferico${id}" name="oe_esferico" value="${oe_esferico}"> </td>` +
         `   <td> <input type="text" class="form-control" id="updateOe_cilindrico${id}" name="oe_cilindrico" value="${oe_cilindrico}"> </td>` +
         `   <td> <input type="text" class="form-control" id="updateOe_eixo${id}" name="oe_eixo" value="${oe_eixo}"> </td>` +
+        `   <td> <input type="text" class="form-control" id="updateace${id}" name="oe_eixo" value="${ace}"> </td>` +
         ` </tr>` +
+        `<tr>` +
+            `<th></th>` +
+            ` <td></td>` +
+            ` <td></td>` +
+            `  <td></td>` +
+            `  <td><input type="text" class="form-control" id="update_ac${id}" name="ac" value="${ac}"></td>` +
+            ` </tr>` +
         `    </tbody>` +
         ` </table>` +
         ` </div>` +
@@ -469,6 +510,9 @@ function update(id)
     let oe_eixo = $(`#updateOe_eixo${id}`).val()
     let adicao = $(`#updateAdicao${id}`).val()
     let obs = $(`#updateObs${id}`).val()
+    let ac = $(`#update_ac${id}`).val()
+    let acd = $(`#updateacd${id}`).val()
+    let ace = $(`#updateace${id}`).val()
     if(nome == '' || idade == ''){
         Swal.fire({
             title: 'Preencha os Campos obrigatórios!',
@@ -485,7 +529,7 @@ function update(id)
         });
         $.ajax({
             method: "POST",
-            data: `nome=${nome}&idade=${idade}&od_esferico=${od_esferico}&od_cilindrico=${od_cilindrico}&od_eixo=${od_eixo}&oe_esferico=${oe_esferico}&oe_cilindrico=${oe_cilindrico}&oe_eixo=${oe_eixo}&adicao=${adicao}&obs=${obs}`,
+            data: `nome=${nome}&idade=${idade}&od_esferico=${od_esferico}&od_cilindrico=${od_cilindrico}&od_eixo=${od_eixo}&oe_esferico=${oe_esferico}&oe_cilindrico=${oe_cilindrico}&oe_eixo=${oe_eixo}&adicao=${adicao}&obs=${obs}&ac=${ac}&acd=${acd}&ace=${ace}`,
             url: `receitas/update/${id}`,
         }).done(function (msg) {
             if(msg.message == 'error') {

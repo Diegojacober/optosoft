@@ -21,7 +21,10 @@ class Receita extends Model
         'adicao',
         'obs',
         'optometrist_id',
-        'otica_id'
+        'otica_id',
+        'ac',
+        'acd',
+        'ace',
     ];
 
     public function optometrist()

@@ -81,7 +81,7 @@ class ExameController extends Controller
             $data['start'] = $data_start;
             $data['end'] = $data_end;
             if (Exame::create($data)) {
-                ConsultCreated::dispatch($opto->email);
+                //ConsultCreated::dispatch($opto->email);
                 return response()->json(['message' => 'success']);
             } else {
                 return response()->json(['message' => 'error']);
@@ -105,10 +105,10 @@ class ExameController extends Controller
                     'confirmado' => '1',
                     'color' => '#32CD32'
                 ]);
-                ConfirmConsult::dispatch($opto->email);
+                //ConfirmConsult::dispatch($opto->email);
                 return response()->json(['message' => 'success']);
             } else if($data['status'] == 'canceled') {
-                CancelConsult::dispatch($opto->email);
+                //CancelConsult::dispatch($opto->email);
                 $exame->update(['confirmado' => '0','color' => '#FF0000']);
                 return response()->json(['message' => 'success']);
             }
